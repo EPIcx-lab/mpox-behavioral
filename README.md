@@ -8,9 +8,14 @@ An in-depth paragraph about your project and overview of use.
 ## Getting Started
 
 ### Dependencies
+#### C++ Requirements
+* Compiler: Apple Clang 14.0.3 (tested on macOS Ventura, ARM64)
+* C++ standard: C++11 (required), but newer standards (C++14/17/20) are also supported
+* No external libraries required (only standard C++ headers)
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+#### Python3 requirements
+
+
 
 ### Installing
 
