@@ -10,6 +10,7 @@ Possible values: "PY_ages_runs_vaccines_CORRECTED" -> no behavioral changes
                  "Targeted_Mixed_Removal" -> Behavioral changes occurring in high-risk MSM preferentially. Probability of changing behavior proportional to node's degree
                  "Contactbased_link_removal_general" Cases' contacts change behavior
 
+- net_folder: Input networks must be in DATA/net_folder. Output files will be saved in OUTPUTS/net_folder. Non-existence of a folder with this name in input or output will raise an error
 - Back_in_time: Applicable only for "Contactbased_link_removal_general". If >0, when an S individual is infected, some of its contacts occured in the 
                 previous 'back_in_time' days change behavior. If=-1, contacts are searched since the beginning of the simulation.
 
@@ -42,9 +43,8 @@ analysis_type = "Targeted_Mixed_Removal"                             # see detai
 subfolder = analysis_type                                            # leave it as is
 
 net_list = ["N1","N2","N3","N4","N5"]                                #name of input network files (default extension is .txt)
-parentdir = '/'.join(os.path.abspath('./').split(os.sep)[:-6])
-maindir = f'{parentdir}/Dropbox/DM/INSERM/MONKEYPOX'
-net_folder = 'FIVE_NETWORKS_threshold'
+maindir = os.path.dirname(os.getcwd())
+net_folder = 'precision'                                             #see details
 exe_file_name = "mine.exe"
 
 start_simulation_date_default = pd.to_datetime('5-7-2022')           # starting date of the simulation
