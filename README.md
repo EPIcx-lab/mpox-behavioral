@@ -36,10 +36,7 @@ Each output file's name is a sequence of numbers separated by underscores. Numbe
 ## Help
 The code contains plenty of warning functions, that help to solve the most common problems and mistakes.
 
-## Authors
-Davide Maniscalco, davide.maniscalco@inserm.fr
-
-## License
+## License and Authors
 Maniscalco, D., Adaptive behavior in response to the 2022 mpox epidemic in the Paris region. Preprint at: https://www.medrxiv.org/content/10.1101/2024.10.25.24315987v1
 
 Data and code belong to the authors:
