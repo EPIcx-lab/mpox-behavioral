@@ -1,5 +1,4 @@
-# Project Title
-Code for "Adaptive behavior in response to the 2022 mpox epidemic in the Paris region" by D. Maniscalco et al.
+# Code for "Adaptive behavior in response to the 2022 mpox epidemic in the Paris region" by D. Maniscalco et al.
 
 ## Description
 This code serves to simulate infectious diseases, notably mpox, among men-who-have-sex-with-men (MSM) in the Paris region. The code simulates an agent-based process on the input temporal network
@@ -28,6 +27,11 @@ or
 python3 launcher.py
 ```
 depending on the system. All the input parameters must be provided in the parameters.py file.
+
+#### Input files
+
+#### Output files
+Each output file's name is a sequence of numbers separated by underscores. Numbers correspond to input parameters. The ordering of the numbers is guided in the 'launcher.py' file, and it is different
 
 ## Help
 The code contains plenty of warning functions, that help to solve the most common problems and mistakes.
