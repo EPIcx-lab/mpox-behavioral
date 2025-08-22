@@ -16,9 +16,8 @@ This code serves to simulate infectious diseases, notably mpox, among men-who-ha
 * Numpy 1.24.3
 * Pandas 1.4.3
 
-### Executing program
-
-* Program is run with the command
+## Executing program
+* Program is run with the command inside the CODE folder
 ```
 python launcher.py
 ```
@@ -26,12 +25,20 @@ or
 ```
 python3 launcher.py
 ```
-depending on the system. All the input parameters must be provided in the parameters.py file.
+depending on the system. All the input parameters must be edited in the parameters.py file.
 
-#### Input files
+### Input files
+The folder DATA.zip must be unzipped to allow the code to read the input files.
+The only needed input files are the temporal networks, the age of the MSM, and the IDS. The first are stored in DATA/Networks/precision/Original, the latter two in DATA/Networks/precision. 5 networks with their ids and ages, and numbered from N1 to N5. Network names are specified in the parameters.py script.
 
-#### Output files
-Each output file's name is a sequence of numbers separated by underscores. Numbers correspond to input parameters. The ordering of the numbers is guided in the 'launcher.py' file, and it is different
+### Output files
+Each output file's name is a sequence of numbers separated by underscores. Numbers correspond to input parameters. The ordering of the numbers is guided in the 'launcher.py' file, and it is different if the code is launched with behavioral changes (more parameters are involved) or without. This is regulated by the 'analysis_type' variable in the parameters.py file. 
+
+Outputs files are saved in the 'OUTPUTS/precision/{network}/{analysis_type}' folder, which must be unzipped. For each network, its outputs will be saved in the relative folder. {network} names must coincide with network names in the DATA folder. Outputs will be saved in a different subfolder according to the analysis performed. This is controlled by the 'analysis_type' variable in the 'parameters.py' script.
+
+Simulations always produce a "results" file, which is saved in the results folder. This file contains the time series of the epidemic.
+If save_state = 1, a "state" file is produced. This file contains information for each of the MSM in the simulation (as if he was vaccinated, if he changed behavior, etc).
+If save_weights = 1, a "weights" file is produced. This file reports the full input temporal networks, adding the information on whether each link was removed between two MSM was removed due to behavioral changes.
 
 ## Help
 The code contains plenty of warning functions, that help to solve the most common problems and mistakes.
