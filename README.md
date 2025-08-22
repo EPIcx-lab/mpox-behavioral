@@ -2,8 +2,7 @@
 Code for "Adaptive behavior in response to the 2022 mpox epidemic in the Paris region" by D. Maniscalco et al.
 
 ## Description
-This code serves to simulate infectious diseases, notably mpox, among men-who-have-sex-with-men (MSM) in the Paris region. The code simulates an agent-based process 
-An in-depth paragraph about your project and overview of use.
+This code serves to simulate infectious diseases, notably mpox, among men-who-have-sex-with-men (MSM) in the Paris region. The code simulates an agent-based process on the input temporal network
 
 ## Getting Started
 
@@ -14,7 +13,9 @@ An in-depth paragraph about your project and overview of use.
 * No external libraries required (only standard C++ headers)
 
 #### Python3 requirements
-
+* Python 3.8.10
+* Numpy 1.24.3
+* Pandas 1.4.3
 
 
 ### Installing
@@ -24,11 +25,15 @@ An in-depth paragraph about your project and overview of use.
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+* Program is run with the command
 ```
-code blocks for commands
+python launcher.py
 ```
+or 
+```
+python3 launcher.py
+```
+depending on the system. All the input parameters must be provided in the parameters.py file.
 
 ## Help
 
