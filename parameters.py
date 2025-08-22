@@ -1,4 +1,22 @@
 # -------------------------------------------------------------------------------------------------------------------------
+# ** DETAILS ****************************************************************************************
+# -------------------------------------------------------------------------------------------------------------------------
+'''
+Here detailed information about some of the input parameters are provided
+
+- Analysis type
+Possible values: "PY_ages_runs_vaccines_CORRECTED" -> no behavioral changes
+                 "Random_Mixed_Removal" -> Widespread behavioral changes. Each MSM has the same probability of changing behavior
+                 "Targeted_Mixed_Removal" -> Behavioral changes occurring in high-risk MSM preferentially. Probability of changing behavior proportional to node's degree
+                 "Contactbased_link_removal_general" Cases' contacts change behavior
+
+- Back_in_time: Applicable only for "Contactbased_link_removal_general". If >0, when an S individual is infected, some of its contacts occured in the 
+                previous 'back_in_time' days change behavior. If=-1, contacts are searched since the beginning of the simulation.
+
+- start_degree_date, end_degree_date: Nodes' degree is computed aggregating the temporal network from start_degree_date to end_degree_date
+
+'''
+# -------------------------------------------------------------------------------------------------------------------------
 # ** REMARK ABOUT REM_LIST ****************************************************************************************
 # -------------------------------------------------------------------------------------------------------------------------
 # if analysis_type == "Targeted_Mixed_Removal" or == "Random_Mixed_Removal", then the values in rem_list
@@ -20,62 +38,64 @@ from datetime import timedelta
 # --------------------------------------------------------------------------------------------------------------
 # ** PARAMETERS DEFS *********************************************************************************** 
 # --------------------------------------------------------------------------------------------------------------
-analysis_type = "Targeted_Mixed_Removal"
-subfolder = analysis_type
+analysis_type = "Targeted_Mixed_Removal"                             # see details
+subfolder = analysis_type                                            # leave it as is
 
-net_list = ["N1","N2","N3","N4","N5"]
+net_list = ["N1","N2","N3","N4","N5"]                                #name of input network files (default extension is .txt)
 parentdir = '/'.join(os.path.abspath('./').split(os.sep)[:-6])
 maindir = f'{parentdir}/Dropbox/DM/INSERM/MONKEYPOX'
 net_folder = 'FIVE_NETWORKS_threshold'
 exe_file_name = "mine.exe"
 
-start_simulation_date_default = pd.to_datetime('5-7-2022') 
-end_simulation_date = pd.to_datetime('8-31-2022') 
-start_vaccines_date = pd.to_datetime('5-27-2022')
-end_vaccines_date = pd.to_datetime('7-10-2022')
-start_firstdose_date = pd.to_datetime('7-11-2022')
-interrupt_reference_date = pd.to_datetime('6-30-2022')
+start_simulation_date_default = pd.to_datetime('5-7-2022')           # starting date of the simulation
+end_simulation_date = pd.to_datetime('8-31-2022')                    # ending date of the simulation
+start_vaccines_date = pd.to_datetime('5-27-2022')                    # starting date of the PEP vaccination
+end_vaccines_date = pd.to_datetime('7-10-2022')                      # ending date of the PEP vaccination
+start_firstdose_date = pd.to_datetime('7-11-2022')                   # starting date of the PrEP vaccination
+interrupt_reference_date = pd.to_datetime('6-30-2022')               # ending date of the PrEP vaccination
 
 # float ------------------------------------------------------
-mu_1_before_start = 1/8.82
-mu_1_May = 1/8.82 
-mu_1_June = 1/6.71
-mu_1_after_June = 1/6.71 
-mu  = 1.0/14.0
-epsilon = 1.0/8.0
-VES_pep = 0.89
-VEI_pep = 0.0
-VEE_pep = 0.0
-VES_smallpox = 0.71
-VEI_smallpox = 0.0
-VEE_smallpox = 0.0
-VES_firstdose = 0.78
-VEI_firstdose = 0.0
-VEE_firstdose = 0.0
-first_age_to_immunize = 43
-efficacy_delay_pep = 14   
-efficacy_delay_prep = 14   
-exposure_vaccination_delay = 0
-T_data = 180
-n_runs = 50
-n_initial_I = 10
-degree_vaccination_threshold = 10
-prep_vaccination = 1   # 1 is true
-msm_population = 65_000
-verbose = 1  
-save_state = 1         # 0 is false
+mu_1_before_start = 1/8.82                                           # Inverse of the onset-to-testing period, before May
+mu_1_May = 1/8.82                                                    # Inverse of the onset-to-testing period, in May
+mu_1_June = 1/6.71                                                   # Inverse of the onset-to-testing period, in June
+mu_1_after_June = 1/6.71                                             # Inverse of the onset-to-testing period, after June
+mu  = 1.0/14.0                                                       # Inverse of the infectious period
+epsilon = 1.0/8.0                                                    # Inverse of the incubation period
+VES_pep = 0.89                                                       # PEP effectiveness against infection
+VEI_pep = 0.0                                                        # PEP effectiveness against transmission
+VEE_pep = 0.0                                                        # PEP effectiveness against onset of symptoms (never used, leave 0)
+VES_smallpox = 0.71                                                  # Smallpox vaccine effectiveness against infection
+VEI_smallpox = 0.0                                                   # Smallpox vaccine effectiveness against transmission
+VEE_smallpox = 0.0                                                   # Smallpox vaccine effectiveness against onset of symptoms (never used, leave 0)
+VES_firstdose = 0.78                                                 # PrEP effectiveness against infection
+VEI_firstdose = 0.0                                                  # PrEP effectiveness against transmission
+VEE_firstdose = 0.0                                                  # PrEP effectiveness against onset of symptoms (never used, leave 0)
+first_age_to_immunize = 43                                           # minimum age of MSM to whom assign smallpox vaccination                  
+efficacy_delay_pep = 14                                              # delay between PEP administration and PEP becoming effective (effectiveness is 0 in the meanwhile)            
+efficacy_delay_prep = 14                                             # delay between PrEP administration and PEP becoming effective (effectiveness is 0 in the meanwhile)
+exposure_vaccination_delay = 0                                       # Delay between contact at-risk and vaccine administration (applicable only for Contactbased_link_removal_general)
+T_data = 180                                                         # Duration of the input temporal networks (days)
+n_runs = 50                                                          # Number of stochastic runs per network
+n_initial_I = 10                                                     # Number of infected seeds at time 0
+degree_vaccination_threshold = 0                                     # Minimum degree to be eligible to receive PrEP vaccination
+prep_vaccination = 1                                                 # 1 is true, 0 is false (no PrEP vaccination is given)
+msm_population = 65_000                                              # MSM population in the Paris region (not in the networks)
+verbose = 1                                                         
+save_state = 1                                                       # 0 is false, 1 is true (not save/save state file. State files are heavy.)
 
+# -- applies for "PY_ages_runs_vaccines_CORRECTED" only --
 class No_removal_parameters:
     def __init__(self):
-        # zipped
-        self.p_detection_list = [.2,.5,.8]
-        self.beta_q_list = [.42,.32,.28]
-        self.beta_list = list(np.array(self.beta_q_list) * 1)
-        self.start_simulation_date_list = pd.to_datetime(['5-6-2022','5-8-2022','5-7-2022'])
+        # these lists are zipped and must have the same length
+        self.p_detection_list = [.2,.5,.8]                                                       # detection probabilities
+        self.beta_q_list = [.42,.32,.28]                                                         # transmission rate beta of Id MSM (see SI)
+        self.beta_list = list(np.array(self.beta_q_list) * 1)                                    # transimssion rate beta of I MSM (see SI)
+        self.start_simulation_date_list = pd.to_datetime(['5-6-2022','5-8-2022','5-7-2022'])     # start simulation date
 
         # non zipped 
-        self.total_doses_to_be_given_list = [10_000]
+        self.total_doses_to_be_given_list = [10_000]                                             # Total number of PEP doses to be administrated
 
+    # -- do not edit. These are parameters useful only for behavioral changes. Here some defaults are assigned. --
     def default_parameters(self, analysis_type):
         if analysis_type == "PY_ages_runs_vaccines_CORRECTED":
             self.back_in_time = -100
@@ -86,7 +106,9 @@ class No_removal_parameters:
             self.start_rem_date = pd.to_datetime('6-30-2022') 
             self.end_rem_date = pd.to_datetime('7-1-2022')   
             self.only_non_vaccinated_change_behavior = -1 # 1 is true. Here no b. changes -> default=-1
-            self.save_weights = 1
+            
+            # changeable
+            self.save_weights = 1                                                                # 1: save weights file, 0 does not. Weights file is heavy.
 
     def debugging(self):
         if(len(self.beta_q_list) != len(self.p_detection_list)):
@@ -96,13 +118,14 @@ class No_removal_parameters:
         if(len(self.beta_q_list) != len(self.beta_list)):
              sys.exit("wrong zipped params length")
 
-class Removal_parameters:
+class Removal_parameters:                                                       
     def __init__(self):
-        self.total_doses_to_be_given = 10_000
-        self.settings = [2]    
-        self.back_in_time = 14
-        self.save_weights = 1     #0 is false. weights file is very heavy
-    
+        self.total_doses_to_be_given = 10_000                              # Total number of PEP doses to be administrated
+        self.settings = [2]                                                # Settings to be launched. Settings are defined below.                                     
+        self.back_in_time = 14                                             # see details
+        self.save_weights = 1                                              # 0 is false. weights file is very heavy.
+
+    # -- default, to leave as is --
     def default_parameters(self, analysis_type):
         if analysis_type == "Targeted_Mixed_Removal" or analysis_type == "Random_Mixed_Removal":
             self.back_in_time = -100
@@ -110,21 +133,22 @@ class Removal_parameters:
 class Setting_Parameters:
     def __init__(self, setting):
         self.setting = setting
-    
+        
+    # -- three possible settings are defined here below. User can define its own setting --
     def set_parameters(self, start_simulation_date_default):
         if self.setting == 1:
-            self.p_detection = 0.2
-            self.beta_q = 0.42
-            self.beta = self.beta_q * 1         
-            self.lag = -1
-            self.prem_list = [77]
-            self.rem_list = [18]
-            self.start_simulation_date = start_simulation_date_default + timedelta(days=self.lag)
-            self.start_degree_date = self.start_simulation_date
-            self.start_rem_date_list = pd.to_datetime(['6-18-2022']) #pd.to_datetime(['6-15-2022','6-18-2022','6-21-2022']) 
-            self.end_rem_date_list = pd.to_datetime(['7-18-2022']) #pd.to_datetime(['7-15-2022','7-18-2022','7-21-2022'])   
-            self.end_degree_date_list = self.end_rem_date_list
-            self.only_non_vaccinated_change_behavior = 0
+            self.p_detection = 0.2                                                                                                 # detection probability
+            self.beta_q = 0.42                                                                                                     # transmission rate beta of Id MSM (see SI)
+            self.beta = self.beta_q * 1                                                                                            # transmission rate beta of I MSM (see SI)
+            self.lag = -1                                                                                                          # first date in surveillance data - start simulation date
+            self.prem_list = [77]                                                                                                  # probability (%) of averting a contact if having changed behavior
+            self.rem_list = [18]                                                                                                   # cumulative total % of MSM that are changing behavior
+            self.start_simulation_date = start_simulation_date_default + timedelta(days=self.lag)                                  # start simulation date
+            self.start_degree_date = self.start_simulation_date                                                                    # see details
+            self.start_rem_date_list = pd.to_datetime(['6-18-2022']) #pd.to_datetime(['6-15-2022','6-18-2022','6-21-2022'])        # starting date of behavioral changes
+            self.end_rem_date_list = pd.to_datetime(['7-18-2022']) #pd.to_datetime(['7-15-2022','7-18-2022','7-21-2022'])          # ending date of behavioral changes
+            self.end_degree_date_list = self.end_rem_date_list                                                                     # see details
+            self.only_non_vaccinated_change_behavior = 1                                                                           # 1: Only non-smallpox vaccinated MSM can change behavior. 0: All MSM can
             
         elif self.setting == 2:
             self.p_detection = 0.5
