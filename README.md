@@ -40,5 +40,10 @@ The code contains plenty of warning functions, that help to solve the most commo
 Davide Maniscalco, davide.maniscalco@inserm.fr
 
 ## License
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+Maniscalco, D., Adaptive behavior in response to the 2022 mpox epidemic in the Paris region. Preprint at: https://www.medrxiv.org/content/10.1101/2024.10.25.24315987v1
+
+Data and code belong to the authors:
+Davide Maniscalco, Olivier Robineau, Pierre-Yves Boëlle, Mattia Mazzoli, Anne-Sophie Barret, Emilie Chazelle, Alexandra Mailles, Harold Noël, Arnaud Tarantola, Annie Velter, Laura Zanetti, Vittoria Colizza
+
+If you use this material, please cite the above reference.
 
