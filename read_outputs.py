@@ -1,52 +1,52 @@
 '''
 READ OUTPUT FILES
-Output files can be read more easily in the form of pandas dataframes by using the python function: 'Unified_Code_Load_Results_threshold'. This function assign names to the pandas dataframe columns. 
+Output files can be read more easily in the form of pandas dataframes by using the Python function: 'Unified_Code_Load_Results_threshold'. This function assigns names to the pandas dataframe columns. 
 
 -- INPUTS --
 - folder must be the path to the folder containing the three folders: state, results, and weights. Example: folder=f'./OUTPUTS/precision/{network}/{analysis_type}'
-- analysis_code is an integer must be defined according to analysis_type. It can be done through the function 'define_analysis_code(analysis_type)'.
-- also_state=1 if you want to load state file also, 0 otherwise
-- also_weights=1 if you want to load weights file also, 0 otherwise
+- analysis_code is an integer that must be defined according to analysis_type. It can be done through the function 'define_analysis_code(analysis_type)'.
+- also_state=1 if you want to load the state file also, 0 otherwise
+- also_weights=1 if you want to load the weights file also, 0 otherwise
 
 Notice that the number of outputs of the function depends on also_state and also_weights
-The number correspond to the column (first column is numbered as 0), the string to the name assigned to the pandas dataframe column by the function
+For each file described below, the number corresponds to the column (first column is numbered as 0), and the string to the name assigned to the pandas dataframe column by the function
 
 ## RESULTS FILE DESCRIPTION ##
 0:'time':                        day
-1:'S':                           # of Susceptible MSM
-2:'E':                           # of Exposed MSM
-3:'IQ':                          # of ID MSM (see SI)
-4:'I':                           # of I MSM (see SI)
-5:'Q':                           # of isolated MSM
-6:'R':                           # of removed MSM (previously I)
-7:'RQ':                          # of removed MSM (previously IQ)
-8:'All_new_I_cases':             # of new infections that day (both I and IQ)
-9:'new_I1_cases':                # of new cases that day (only I)
-10:'behavior':                   # of MSM changing behavior
-11:'eligible_contacts':          # of contacts eligible to change behavior (see SI and manuscript, applicable only if analysis_type=='Contactbased_link_removal_general') 
-12:'non_eligible_contacts':      # of contacts non eligible to change behavior (see SI and manuscript, applicable only if analysis_type=='Contactbased_link_removal_general') 
+1:'S'                            # of Susceptible MSM
+2:'E'                            # of Exposed MSM
+3:'IQ'                           # of ID MSM (see SI)
+4:'I'                            # of I MSM (see SI)
+5:'Q'                            # of isolated MSM
+6:'R'                            # of removed MSM (previously I)
+7:'RQ'                           # of removed MSM (previously IQ)
+8:'All_new_I_cases'              # of new infections that day (both I and IQ)
+9:'new_I1_cases'                 # of new cases that day (only I)
+10:'behavior'                    # of MSM changing behavior
+11:'eligible_contacts'           # of contacts eligible to change behavior (see SI and manuscript, applicable only if analysis_type=='Contactbased_link_removal_general') 
+12:'non_eligible_contacts'       # of contacts non eligible to change behavior (see SI and manuscript, applicable only if analysis_type=='Contactbased_link_removal_general') 
 13:'averted_eligible_contacts'   # of averted contacts among the eligible ones (applicable only if analysis_type=='Contactbased_link_removal_general') 
 14:'run'                         stochastic run number
 
 ## STATE FILE DESCRIPTION ##
-State file provides some information about each node in the network. Information always refer to the end of the simulation. For example, the column 'compartment' refers to the compartment of the MSM at the end of the epidemic
+The state file provides some information about each node in the network. Information always refers to the end of the simulation. For example, the column 'compartment' refers to the compartment of the MSM at the end of the epidemic.
 
-0:'id':                           ID of the node
-1:'compartment'                   compartment number. Coding: 0:S, 1:E, 2:I, 3:ID, 4:Q, 5:R, 6:RD
-2:'vacc_status'                   see details on vacc_status
-3:'infecting_id'                  ID of the infecting node
-4:'generation',                   infection generation (If I am infected by a seed, generation=1)
-5:'detected'                      0: non-detected, 1:detected, -1: never infected
-6:'inf_time'                      time when becoming infectious (entering either I or ID compartment)             
-7:'gen_time'                      generation time
-8:'vacc_time'                     time when vaccinated
-9:'exposure_time'                 time when entering the E compartment
-10:'age'                          age
-11:'behavior'                     1: changed behavior, 0: did not change behavior
-12:'change_time'                  time when changing behavior
+0:'id':                                   ID of the node
+1:'compartment'                           compartment number. Coding: 0:S, 1:E, 2:I, 3:ID, 4:Q, 5:R, 6:RD
+2:'vacc_status'                           see details on vacc_status
+3:'infecting_id'                          ID of the infecting node
+4:'generation',                           infection generation (If I am infected by a seed, generation=1)
+5:'detected'                              0: non-detected, 1:detected, -1: never infected
+6:'inf_time'                              time when becoming infectious (entering either I or ID compartment)             
+7:'gen_time'                              generation time
+8:'vacc_time'                             time when vaccinated
+9:'exposure_time'                         time when entering the E compartment
+10:'age'                                  age
+11:'behavior'                             1: changed behavior, 0: did not change behavior
+12:'change_time'                          time when changing behavior
 13:'compartment_when_vaccinated' 
 14:'compartment_when_changing_behavior'
-15:'run'
+15:'run'                                  stochastic run number
 
 -- details on vacc_status --
 0: never vaccinated
@@ -59,6 +59,11 @@ State file provides some information about each node in the network. Information
 -100: PEP received (not effective yet)
 
 ## WEIGHTS FILE DESCRIPTION ##
+The weights file copies the input temporal network and specifies if each link was removed or not (due to behavioral changes).
+
+0:'run'                             stochastic run number
+1:'time',                           day
+2:'weight'                          1: link not eliminated, 0: link eliminated
 
 '''
 
