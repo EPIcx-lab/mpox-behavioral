@@ -1,7 +1,7 @@
 # Code for "Adaptive behavior in response to the 2022 mpox epidemic in the Paris region" by D. Maniscalco et al.
 
 ## Description
-This code serves to simulate infectious diseases, notably mpox, among men-who-have-sex-with-men (MSM) in the Paris region. The code simulates an agent-based process on the input temporal network
+This code serves to simulate infectious diseases, notably mpox, among men-who-have-sex-with-men (MSM) in the Paris region. The code simulates an agent-based process on the input temporal network. 
 
 ## Getting Started
 
@@ -17,7 +17,7 @@ This code serves to simulate infectious diseases, notably mpox, among men-who-ha
 * Pandas 1.4.3
 
 ## Executing program
-* Program is run with the command inside the CODE folder
+* The program is run with the command inside the CODE folder
 ```
 python launcher.py
 ```
@@ -38,10 +38,12 @@ Outputs files are saved in the 'OUTPUTS/precision/{network}/{analysis_type}' fol
 
 Simulations always produce a "results" file, which is saved in the results folder. This file contains the time series of the epidemic.
 If save_state = 1, a "state" file is produced. This file contains information for each of the MSM in the simulation (as if he was vaccinated, if he changed behavior, etc).
-If save_weights = 1, a "weights" file is produced. This file reports the full input temporal networks, adding the information on whether each link was removed between two MSM was removed due to behavioral changes.
+If save_weights = 1, a "weights" file is produced. This file copies the full input temporal networks, adding the information on whether each link was removed between two MSM due to behavioral changes.
+
+The read_outputs.py script contains details on the structure of the output files and two Python functions to read them in Python as pandas dataframes.
 
 ## Help
-The code contains plenty of warning functions, that help to solve the most common problems and mistakes.
+The code contains plenty of warning functions that help to solve the most common problems and mistakes.
 
 ## License and Authors
 Maniscalco, D., Adaptive behavior in response to the 2022 mpox epidemic in the Paris region. Preprint at: https://www.medrxiv.org/content/10.1101/2024.10.25.24315987v1
