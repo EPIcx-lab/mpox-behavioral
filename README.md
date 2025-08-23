@@ -1,7 +1,7 @@
 # Code for "Adaptive behavior in response to the 2022 mpox epidemic in the Paris region" by D. Maniscalco et al.
 
 ## Description
-This code serves to simulate infectious diseases, notably mpox, among men-who-have-sex-with-men (MSM) in the Paris region. The code simulates an agent-based process on the input temporal network. 
+This code was used to simulate the 2022 mpox outbreak among men-who-have-sex-with-men (MSM) in the Paris region. The code takes as input one (or more) temporal networks representative of the sexual interactions between MSM and simulates the epidemic spreading. The code includes 1st generation smallpox vaccination, PrEP and PEP vaccination against mpox, three types of behavioral changes, cases underdetection. Full details on the methods can be found in the paper's manuscript and SI.
 
 ## Getting Started
 
